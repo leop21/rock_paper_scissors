@@ -22,7 +22,7 @@ The name of the second place of the championship.</br>
 Example: Armando</br>
 Example Request</br>
 POST</br>
-http://<mypublicserver.com>/api/championship/result</br>
+http://geocr.ccp.ucr.ac.cr/rps/index.php/api/championship/result</br>
 POST Data</br>
 first=Dave&second=Armando</br>
 Example Output</br>
@@ -43,7 +43,7 @@ Sets the count of records to be retrieved. If not provided, the default value is
 Example: 123</br>
 Example Request</br>
 GET</br>
-http://<mypublicserver.com>/api/championship/top?count=10</br>
+http://geocr.ccp.ucr.ac.cr/rps/index.php/api/championship/top?count=10</br>
 Example Output</br>
 {</br>
 players: ["Dave", "Armando", "Robert"]</br>
@@ -64,7 +64,7 @@ Example:</br>
 [["Armando", "P"],["Dave", "S"]]</br>
 Example Request</br>
 POST</br>
-http://<mypublicserver.com>/api/championship/new</br>
+http://geocr.ccp.ucr.ac.cr/rps/index.php/api/championship/new</br>
 POST Data</br>
 data=[["Armando", "P"],["Dave", "S"]]</br>
 Example Output</br>
