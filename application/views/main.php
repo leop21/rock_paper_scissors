@@ -24,6 +24,9 @@ Top 10
 <li><?php echo $players;?></li>
 </ul>
 
-<form id="salida" name="salida" method="post" action="reset">
+<form id="reset" name="reset" method="post" action="reset">
     <INPUT type="submit" value="Reset"/>
 </form>
+
+Source code available at:
+<a href="https://github.com/leop21/rock_paper_scissors">https://github.com/leop21/rock_paper_scissors</a>
