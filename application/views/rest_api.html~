@@ -1,0 +1,65 @@
+REST API
+
+POST api/championship/result
+Stores the first and second place of a tournament, each user is stored with their respective scores. The user names will be unique, but the same user can win 1 or more championships. Returns the operation status if successfully.
+Resource information:
+Resource URL: /api/championship/result
+HTTP Method: POST
+Response format: JSON
+Parameters:
+first
+required
+The name of the winner of the championship.
+Example: Dave
+second
+required
+The name of the second place of the championship.
+Example: Armando
+Example Request
+POST
+http://<mypublicserver.com>/api/championship/result
+POST Data
+first=Dave&second=Armando
+Example Output
+{
+status: 'success'
+}
+GET api/championship/top
+Retrieves the top players of all championships. Returns the list of player names based on the count provided.
+Resource information:
+Resource URL: /api/championship/top
+HTTP Method: POST
+Response format: JSON
+Parameters:
+count
+optional
+Sets the count of records to be retrieved. If not provided, the default value is 10.
+Example: 123
+Example Request
+GET
+http://<mypublicserver.com>/api/championship/top?count=10
+Example Output
+{
+players: ["Dave", "Armando", "Robert"]
+}
+POST api/championship/new
+Receives the championship data and computes it to identify the winner. The first and second place are stored into a database with their respective scores. Returns the winner of the championship.
+Resource information:
+Resource URL: /api/championship/new
+HTTP Method: POST
+Response format: JSON
+Parameters:
+data
+mandatory
+The data of the championship following the bracketed array standard.
+Example:
+[["Armando", "P"],["Dave", "S"]]
+Example Request
+POST
+http://<mypublicserver.com>/api/championship/new
+POST Data
+data=[["Armando", "P"],["Dave", "S"]]
+Example Output
+{
+winner: ["Dave", "S"]
+}

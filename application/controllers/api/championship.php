@@ -75,6 +75,11 @@ class Championship extends REST_Controller
 		$this->load->view("main", $data);
 	}
 
+	function rest_post()
+	{
+		$this->load->view("rest_api");
+	}
+
 	function view1_get()
 	{
 		$this->load->view("add_championship");

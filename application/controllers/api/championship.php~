@@ -44,7 +44,7 @@ class Championship extends REST_Controller
 
 	function download_post(){
 		$this->load->helper('download');
-		$data = file_get_contents('/var/www/rps/downloads/example.txt');
+		$data = file_get_contents('downloads/example.txt');
 		force_download('example.txt', $data);
 	}  
 
