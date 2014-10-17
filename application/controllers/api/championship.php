@@ -232,14 +232,32 @@ function getPlayerElements($player)
 	return array($player, $name, $play);
 }
 
-//Levantar excepcion si hay mas de dos jugadores
-    //Levantar excepcion si la jugada no es R, P ni S
-    //Hacerlo case-insensitive
     function getWinner($game)
     {
+
+	//If the number of players is not equal to 2
+	if($this->getOccurrences($game, "[")!=3)
+	{
+		$this->response(array('error' => 'The number of players is not equal to 2'), 404);
+	}
+
         $players = $this->getElements($game);     
 	$player1 = $this->getPlayerElements($players[0]);
 	$player2 = $this->getPlayerElements($players[1]);
+
+	//Case-insensitive
+	$player1[2] = strtoupper($player1[2]);
+	$player2[2] = strtoupper($player2[2]);
+
+	if($player1[2] != 'R' && $player1[2] != 'P' && $player1[2] != 'S')
+	{
+		$this->response(array('error' => 'The player 1 strategy is not recognized'), 404);
+	}
+
+	if($player2[2] != 'R' && $player2[2] != 'P' && $player2[2] != 'S')
+	{
+		$this->response(array('error' => 'The player 2 strategy is not recognized'), 404);
+	}
 
 	$winner = $player1; 
 	$loser = $player2; 
