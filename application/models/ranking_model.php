@@ -1,0 +1,116 @@
+<?php
+class Ranking_model extends CI_Model
+{
+	/*
+	* A private variable to represent each column in the database
+	*/
+	private $_player;
+	private $_points;
+
+	function __construct()
+	{
+		parent::__construct();
+		$this->points = 0;
+	}
+
+	/*
+	* SET's & GET's
+	* Set's and get's allow you to retrieve or set a private variable on an object
+	*/
+	
+	public function getPlayer()
+	{
+		return $this->_player;
+	}
+	public function setPlayer($value)
+	{
+		$this->_player = $value;
+	}
+	
+	public function getPoints()
+	{
+		return $this->_points;
+	}
+	public function setPoints($value)
+	{
+		$this->_points = $value;
+	}
+	
+
+	/*
+	* Class Methods
+	*/
+
+
+	public function reset()
+	{
+		if($this->db->truncate('ranking'))
+		{
+			return true;
+		}else
+		{
+			return false;
+		} 
+	}
+
+	public function getTop10($count = 10)
+	{
+		$this->db->select('*')->from('ranking')->order_by("points", "desc")->limit($count);	
+		$query = $this->db->get();
+		return $query;
+	}
+	
+
+	/**
+	*	Commit method, this will comment the entire object to the database
+	*/
+	public function commit()
+	{
+/*		$data = array(
+			'player' => $this->_player,
+			'points' => $this->_points
+		);
+*/
+
+		 //if ($this->_player != '') {
+			/*$this->db->select("points");
+			$this->db->get("ranking");
+			$query = $this->db->where("player", $this->_player);
+			*/
+		//$query = $this->db->get_where('ranking', array('player' => $this->_player));
+		$this->db->select('points')->from('ranking')->where('player', $this->_player);	
+		$query = $this->db->get();
+		//echo $query->num_rows();
+		if($query->num_rows()>0/* && $query[0]!=''*/)//update
+		{
+			foreach ($query->result() as $row)
+			{
+    				$this->_points += $row->points;
+			}
+			//echo $this->_points;
+			$data = array(
+                        	'player' => $this->_player,
+                	        'points' => $this->_points
+        	        );
+
+                        //We have an ID so we need to update this object because it is not new
+                        if ($this->db->update("ranking", $data, array("player" => $this->_player))) {
+                                return true;
+                        }
+                } else {
+
+			$data = array(
+                        	'player' => $this->_player,
+                        	'points' => $this->_points
+               		 );
+                        //We dont have an ID meaning it is new and not yet in the database so we need to do an insert
+                        if ($this->db->insert("ranking", $data)) {
+                                //Now we can get the ID and update the newly created object
+                                //$this->_id_ingreso = $this->db->insert_id_ingreso();
+                                return true;
+                        }
+                }
+	}	
+	
+}
+?>
